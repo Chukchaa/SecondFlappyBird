@@ -1,8 +1,9 @@
+using FlappyBird.Pause;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BirdsMovement : MonoBehaviour
+public class BirdsMovement : Pausable
 {
     [SerializeField] private float _jumpForce = 5f;
     [SerializeField] private float _rotationSpeed = 5f;
@@ -10,6 +11,7 @@ public class BirdsMovement : MonoBehaviour
     private float _maxRotation = 45;
     private float _minRotation = -75;
     private Rigidbody2D _rigidbody;
+    private bool _onPause;
 
     private void Start()
     {
@@ -23,7 +25,10 @@ public class BirdsMovement : MonoBehaviour
             _rigidbody.velocity = Vector2.up * _jumpForce;
         }
 
-        RotateBird();
+        if(!_onPause)
+        {
+            RotateBird();
+        }
     }
 
     private void RotateBird()
@@ -43,5 +48,17 @@ public class BirdsMovement : MonoBehaviour
             targetAngle, _rotationSpeed * Time.deltaTime * 2);
 
         transform.rotation = Quaternion.Euler(0, 0, angle);
+    }
+
+    public override void OnPause()
+    {
+        _onPause = true;
+        _rigidbody.isKinematic = true;
+    }
+
+    public override void OnResume()
+    {
+        _onPause = false;
+        _rigidbody.isKinematic = false;
     }
 }

@@ -2,7 +2,7 @@
 {
     public class CharacterData
     {
-        public int SkinIdentifier { get; set; } = 1;
+        public int SkinIdentifier { get; set; } = 4;
     }
 }
 

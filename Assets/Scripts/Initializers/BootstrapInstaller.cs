@@ -10,6 +10,7 @@ public class BootstrapInstaller : LifetimeScope
     {
         builder.Register<GameState>(Lifetime.Singleton);
         builder.Register<Coins>(Lifetime.Singleton);
+        builder.RegisterComponentInHierarchy<AnimationController>();
         builder.RegisterComponentInHierarchy<UI>();
         builder.RegisterComponentInHierarchy<CharacterConfigBase>();
         builder.RegisterComponentInHierarchy<InitCharacter>();

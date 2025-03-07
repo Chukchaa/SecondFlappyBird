@@ -13,12 +13,14 @@ namespace FlappyBird.Character
         private GameState _gameState;
 
         [Inject]
-        public void Construct(GameState gameState, CharacterConfigBase characterConfigBase, UI ui, Coins coins)
+        public void Construct(GameState gameState, CharacterConfigBase characterConfigBase, UI ui, Coins coins, AnimationController animationController)
         {
             _gameState = gameState;
             ChatacterCreation(characterConfigBase);
+            animationController.BirdAnimator = _characterObject.GetComponent<Animator>();
             coins.Initialize(_characterObject.PlayerContactsPoint);
             ui.Initialize(_characterObject.PlayerContactsPoint);
+            animationController.PlayAnimation(_gameState.Character.SkinIdentifier);
         }
 
         public void ChatacterCreation(CharacterConfigBase characterConfigBase)
